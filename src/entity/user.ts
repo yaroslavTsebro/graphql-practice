@@ -1,19 +1,22 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import {Collection, Entity, Enum, OneToMany, Property} from "@mikro-orm/core";
+import {BaseEntity} from "./base-entity";
+import {OauthProvider} from "./oauth-provider";
+import {Post} from "./post";
 
 @Entity()
-export class User {
-
-  id!: number;
-
-
+export class User extends BaseEntity {
+  @Property()
   email!: string;
 
+  @Property({nullable: true})
+  password?: string;
 
-  password!: string;
+  @Property({nullable: true})
+  oAuthId?: string;
 
+  @Enum({items: () => OauthProvider, nullable: true})
+  oAuthProvider?: OauthProvider;
 
-  createdAt = new Date();
-
-
-  updatedAt = new Date();
+  @OneToMany(() => Post, post => post.author)
+  posts = new Collection<Post>(this);
 }
