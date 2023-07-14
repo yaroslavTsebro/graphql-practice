@@ -1,0 +1,26 @@
+{
+  "name": "raphql-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/app.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@mikro-orm/cli": "^5.7.12",
+    "dotenv": "^16.3.1",
+    "mikro-orm": "^5.7.12",
+    "pg": "^8.11.1",
+    "reflect-metadata": "^0.1.13"
+  }
+}
