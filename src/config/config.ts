@@ -27,9 +27,12 @@ export const config = {
     DB_TYPE: process.env.DB_NAME || DefaultConfigValues.DB_TYPE,
     DB_USER: process.env.DB_USER || DefaultConfigValues.DB_USER,
     DB_PASSWORD: process.env.DB_PASSWORD || DefaultConfigValues.DB_PASSWORD,
-    DB_PORT: process.env.DB_PORT || DefaultConfigValues.DB_PORT,
+    DB_PORT: Number(process.env.DB_PORT) || DefaultConfigValues.DB_PORT,
   },
   env: {
-    APP_MODE_IS_PROD: env == 'prod',
+    APP_MODE_IS_PROD: env == 'production',
+  },
+  server: {
+    port: Number(process.env.APP_PORT) || DefaultConfigValues.APP_PORT,
   }
 }

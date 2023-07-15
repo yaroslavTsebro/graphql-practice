@@ -1,20 +1,21 @@
-import {Options} from '@mikro-orm/core'
+import {MikroORM} from '@mikro-orm/core'
 import path from 'path'
 import {Post} from "../entity/post";
 import {User} from "../entity/user";
 import {Token} from "../entity/token";
-import {config as dbConfig} from "../config/config";
-import {PostgreSqlDriver} from "@mikro-orm/postgresql";
+import {config} from "./config";
 
-const config: Options<PostgreSqlDriver> = {
+export default {
   migrations: {
-    path: path.join(__dirname, '../../', './migrations'),
+    path: path.join(__dirname, ".././migrations"),
   },
+  allowGlobalContext: true,
+  type: config.db.DB_TYPE,
   entities: [Post, User, Token],
-  dbName: dbConfig.db.DB_NAME,
-  user: dbConfig.db.DB_USER,
-  password: dbConfig.db.DB_PASSWORD,
-  debug: dbConfig.env.APP_MODE_IS_PROD,
-};
-
-export default config;
+  dbName: config.db.DB_NAME,
+  user: config.db.DB_USER,
+  password: config.db.DB_PASSWORD,
+  host: config.db.DB_HOST,
+  port: config.db.DB_PORT,
+  debug: config.env.APP_MODE_IS_PROD,
+} as Parameters<typeof MikroORM.init>[0];
