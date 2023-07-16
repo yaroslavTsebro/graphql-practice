@@ -1,7 +1,10 @@
-import {IsString} from "class-validator";
+import {Field, InputType} from 'type-graphql';
 
-export class CreatePost{
+@InputType()
+export class CreatePost {
+  @Field()
+  name: string;
 
-  @IsString()
-  name!: string
+  @Field()
+  userId: string;
 }

@@ -34,5 +34,14 @@ export const config = {
   },
   server: {
     port: Number(process.env.APP_PORT) || DefaultConfigValues.APP_PORT,
+    jwt: {
+      accessSecret: process.env.ACCESS_SECRET ||
+          DefaultConfigValues.ACCESS_SECRET,
+      refreshSecret: process.env.REFRESH_SECRET ||
+          DefaultConfigValues.REFRESH_SECRET,
+      expiresInRefresh: process.env.REFRESH_EXP ||
+          DefaultConfigValues.REFRESH_EXP,
+      expiresInAccess: process.env.ACCESS_EXP || DefaultConfigValues.ACCESS_EXP,
+    }
   }
 }

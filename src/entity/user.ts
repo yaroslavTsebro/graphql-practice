@@ -21,11 +21,11 @@ export class User extends BaseEntity {
   @Property()
   password!: string;
 
-  @Field()
+  @Field(() => Token, {nullable: true})
   @OneToMany(() => Post, post => post.author)
   posts = new Collection<Post>(this);
 
-  @Field()
+  @Field(() => Token, {nullable: true})
   @OneToOne()
   token?: Token;
 }

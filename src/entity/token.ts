@@ -3,12 +3,13 @@ import {BaseEntity} from "./base-entity";
 import {User} from "./user";
 import {Field, ObjectType} from "type-graphql";
 
+
 @ObjectType()
 @Entity()
 export class Token extends BaseEntity {
-  @Field()
-  @OneToOne(() => User, user => user.token, {orphanRemoval: true})
-  user!: User;
+  @Field(() => Token, {nullable: true})
+  @OneToOne(() => User, (user: User) => user.token, { orphanRemoval: true })
+  user!: User; // Provide explicit type for the 'user' property
 
   @Field()
   @Property()

@@ -1,8 +1,9 @@
 import {Context} from "../type/context";
 import {Token} from "../entity/token";
+import {EntityManager} from "@mikro-orm/core";
 
 class TokenRepository {
-  async findByToken({em}: Context, token: string) {
+  async findByToken(em: EntityManager, token: string) {
     try {
       return await em.findOneOrFail(Token, {token: token});
     } catch (e) {
@@ -10,7 +11,15 @@ class TokenRepository {
     }
   }
 
-  async changeToken({em}: Context, token: string, userId: string) {
+  async findByUser(em: EntityManager, userId: string) {
+    try {
+      return await em.findOneOrFail(Token, {user: userId});
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async changeToken(em: EntityManager, token: string, userId: string) {
     try {
       const tokenEntity = await em.findOneOrFail(Token, {user: userId});
       tokenEntity.token = token;
@@ -21,7 +30,7 @@ class TokenRepository {
     }
   }
 
-  async deleteByUserId({em}: Context, userId: string) {
+  async deleteByUserId(em: EntityManager, userId: string) {
     try {
       const post = await em.findOneOrFail(Token, {user: userId});
       await em.remove(post);

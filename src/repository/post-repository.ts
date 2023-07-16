@@ -2,9 +2,10 @@ import {Context} from "../type/context";
 import e from "express";
 import {Post} from "../entity/post";
 import {User} from "../entity/user";
+import {EntityManager} from "@mikro-orm/core";
 
 class PostRepository{
-  async getAll({em}: Context): Promise<Post[]>{
+  async getAll(em: EntityManager): Promise<Post[]>{
     try{
       return await em.find(Post, {});
     }catch (e) {
@@ -12,7 +13,7 @@ class PostRepository{
     }
   }
 
-  async getById({em}: Context, id: string): Promise<Post>{
+  async getById(em: EntityManager, id: string): Promise<Post>{
     try{
       return await em.findOneOrFail(Post, {id: id});
     }catch (e) {
@@ -20,7 +21,7 @@ class PostRepository{
     }
   }
 
-  async create({em}: Context, name: string, userId: string): Promise<Post>{
+  async create(em: EntityManager, name: string, userId: string): Promise<Post>{
     try{
       const user = await em.findOneOrFail(User, { id: userId });
       const post = new Post();
@@ -33,7 +34,7 @@ class PostRepository{
     }
   }
 
-  async delete({em}: Context, id: string): Promise<Post>{
+  async delete(em: EntityManager, id: string): Promise<Post>{
     try{
       const post = await em.findOneOrFail(Post, {id: id});
       await em.remove(post);
